@@ -82,3 +82,9 @@
 [04/11/2025 01:06:34] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
 [04/11/2025 01:06:34] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
 [04/11/2025 01:06:34] Processo concluído em 1.16 segundos.
+[04/11/2025 01:42:10] Iniciando processo de transformação...
+[04/11/2025 01:42:10] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 01:42:11] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[04/11/2025 01:42:11] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[04/11/2025 01:42:11] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 01:42:11] Processo concluído em 1.09 segundos.

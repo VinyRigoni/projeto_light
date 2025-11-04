@@ -1,6 +1,5 @@
 from pathlib import Path
-from transformacao_xls import converter_csv_para_xlsx
-from utils import registrar_log
+from utils import registrar_log, converter_csv_para_xlsx
 import time
 
 # Caminhos base
