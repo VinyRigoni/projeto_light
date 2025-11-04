@@ -1,0 +1,84 @@
+[03/11/2025 23:31:00] Iniciando processo de transformação...
+[03/11/2025 23:31:00] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:31:01] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:31:01] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:31:01] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:31:01] Processo concluído em 1.05 segundos.
+[03/11/2025 23:36:46] Iniciando processo de transformação...
+[03/11/2025 23:36:46] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:36:47] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:36:47] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:36:47] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:36:47] Processo concluído em 1.05 segundos.
+[03/11/2025 23:38:53] Iniciando processo de transformação...
+[03/11/2025 23:38:53] ❌ Erro ao processar clientes.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\clientes_tratado.xlsx'
+[03/11/2025 23:38:54] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:38:54] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:38:54] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:38:54] Processo concluído em 0.96 segundos.
+[03/11/2025 23:42:09] Iniciando processo de transformação...
+[03/11/2025 23:42:09] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:42:10] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:42:10] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:42:10] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:42:10] Processo concluído em 1.08 segundos.
+[03/11/2025 23:49:24] Iniciando processo de transformação...
+[03/11/2025 23:49:24] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:49:25] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:49:25] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:49:25] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:49:25] Processo concluído em 1.07 segundos.
+[03/11/2025 23:52:28] Iniciando processo de transformação...
+[03/11/2025 23:52:28] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:52:29] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:52:29] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:52:29] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:52:29] Processo concluído em 1.1 segundos.
+[03/11/2025 23:55:26] Iniciando processo de transformação...
+[03/11/2025 23:55:26] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:55:27] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:55:27] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:55:27] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:55:27] Processo concluído em 1.07 segundos.
+[03/11/2025 23:57:53] Iniciando processo de transformação...
+[03/11/2025 23:57:53] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[03/11/2025 23:57:54] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[03/11/2025 23:57:54] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[03/11/2025 23:57:54] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[03/11/2025 23:57:54] Processo concluído em 1.09 segundos.
+[04/11/2025 00:06:45] Iniciando processo de transformação...
+[04/11/2025 00:06:46] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 00:06:46] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[04/11/2025 00:06:46] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[04/11/2025 00:06:46] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 00:06:46] Processo concluído em 1.14 segundos.
+[04/11/2025 00:22:40] Iniciando processo de transformação...
+[04/11/2025 00:22:40] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 00:22:41] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[04/11/2025 00:22:41] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[04/11/2025 00:22:41] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 00:22:41] Processo concluído em 1.12 segundos.
+[04/11/2025 00:35:24] Iniciando processo de transformação...
+[04/11/2025 00:35:24] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 00:35:24] ❌ Erro ao processar medicoes_energia.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\medicoes_energia_tratado.xlsx'
+[04/11/2025 00:35:24] ❌ Erro ao processar ocorrencias_tecnicas.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\ocorrencias_tecnicas_tratado.xlsx'
+[04/11/2025 00:35:24] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 00:35:24] Processo concluído em 0.33 segundos.
+[04/11/2025 01:03:42] Iniciando processo de transformação...
+[04/11/2025 01:03:42] ❌ Erro ao processar clientes.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\clientes_tratado.xlsx'
+[04/11/2025 01:03:42] ❌ Erro ao processar medicoes_energia.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\medicoes_energia_tratado.xlsx'
+[04/11/2025 01:03:42] ❌ Erro ao processar ocorrencias_tecnicas.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\ocorrencias_tecnicas_tratado.xlsx'
+[04/11/2025 01:03:42] ❌ Erro ao processar perdas_energia.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\perdas_energia_tratado.xlsx'
+[04/11/2025 01:03:42] Processo concluído em 0.25 segundos.
+[04/11/2025 01:04:40] Iniciando processo de transformação...
+[04/11/2025 01:04:41] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 01:04:41] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[04/11/2025 01:04:42] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[04/11/2025 01:04:42] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 01:04:42] Processo concluído em 1.09 segundos.
+[04/11/2025 01:06:33] Iniciando processo de transformação...
+[04/11/2025 01:06:33] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[04/11/2025 01:06:34] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[04/11/2025 01:06:34] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[04/11/2025 01:06:34] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[04/11/2025 01:06:34] Processo concluído em 1.16 segundos.
