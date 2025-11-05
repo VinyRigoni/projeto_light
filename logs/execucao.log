@@ -136,3 +136,75 @@
 [05/11/2025 02:13:21] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
 [05/11/2025 02:13:21] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
 [05/11/2025 02:13:21] Processo concluído em 1.16 segundos.
+[05/11/2025 02:25:24] Iniciando processo de transformação...
+[05/11/2025 02:25:25] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:25:25] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:25:25] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:25:25] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:25:25] Processo concluído em 1.18 segundos.
+[05/11/2025 02:28:12] Iniciando processo de transformação...
+[05/11/2025 02:28:12] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:28:13] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:28:13] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:28:13] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:28:13] Processo concluído em 1.24 segundos.
+[05/11/2025 02:32:46] Iniciando processo de transformação...
+[05/11/2025 02:32:46] ❌ Erro ao processar clientes.csv: converter_csv_para_xlsx() missing 1 required positional argument: 'output_dir'
+[05/11/2025 02:32:46] ❌ Erro ao processar medicoes_energia.csv: converter_csv_para_xlsx() missing 1 required positional argument: 'output_dir'
+[05/11/2025 02:32:46] ❌ Erro ao processar ocorrencias_tecnicas.csv: converter_csv_para_xlsx() missing 1 required positional argument: 'output_dir'
+[05/11/2025 02:32:46] ❌ Erro ao processar perdas_energia.csv: converter_csv_para_xlsx() missing 1 required positional argument: 'output_dir'
+[05/11/2025 02:32:46] Processo concluído em 0.0 segundos.
+[05/11/2025 02:35:11] Iniciando processo de transformação...
+[05/11/2025 02:35:11] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:35:12] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:35:12] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:35:12] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:35:12] Processo concluído em 1.34 segundos.
+[05/11/2025 02:43:52] Iniciando processo de transformação...
+[05/11/2025 02:43:52] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:43:53] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:43:53] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:43:53] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:43:53] Processo concluído em 1.11 segundos.
+[05/11/2025 02:44:45] Iniciando processo de transformação...
+[05/11/2025 02:44:45] ❌ Erro ao processar clientes.csv: Nenhum dos arquivos contém as colunas 'cidade' e 'estado'.
+[05/11/2025 02:44:46] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:44:46] ❌ Erro ao processar ocorrencias_tecnicas.csv: Nenhum dos arquivos contém as colunas 'cidade' e 'estado'.
+[05/11/2025 02:44:46] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:44:46] Processo concluído em 0.93 segundos.
+[05/11/2025 02:45:29] Iniciando processo de transformação...
+[05/11/2025 02:45:30] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:45:31] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:45:31] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:45:31] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:45:31] Processo concluído em 1.35 segundos.
+[05/11/2025 02:46:51] Iniciando processo de transformação...
+[05/11/2025 02:46:51] ❌ Erro ao processar clientes.csv: Nenhum dos arquivos contém as colunas 'cidade' e 'estado'.
+[05/11/2025 02:46:52] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:46:52] ❌ Erro ao processar ocorrencias_tecnicas.csv: Nenhum dos arquivos contém as colunas 'cidade' e 'estado'.
+[05/11/2025 02:46:52] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:46:52] Processo concluído em 0.94 segundos.
+[05/11/2025 02:48:02] Iniciando processo de transformação...
+[05/11/2025 02:48:02] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:48:03] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:48:03] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:48:03] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:48:03] Processo concluído em 1.23 segundos.
+[05/11/2025 02:51:50] Iniciando processo de transformação...
+[05/11/2025 02:51:51] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:51:51] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:51:52] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:51:52] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:51:52] Processo concluído em 1.36 segundos.
+[05/11/2025 02:52:47] Iniciando processo de transformação...
+[05/11/2025 02:52:47] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:52:48] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:52:48] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:52:48] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:52:48] Processo concluído em 1.23 segundos.
+[05/11/2025 02:58:55] Iniciando processo de transformação...
+[05/11/2025 02:58:56] ✅ clientes.csv convertido com sucesso → clientes_tratado.xlsx
+[05/11/2025 02:58:57] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.xlsx
+[05/11/2025 02:58:57] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.xlsx
+[05/11/2025 02:58:57] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.xlsx
+[05/11/2025 02:58:57] Processo concluído em 1.34 segundos.
