@@ -171,6 +171,23 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
             if verbose:
                 print("🔗 IDs aplicados ao arquivo e dimensão atualizada.")
 
+    # 🔹 PERDAS_ENERGIA.CSV → acrescenta id_estado
+    elif nome_arquivo == "perdas_energia.csv":
+        if not caminho_dim.exists():
+            if verbose:
+                print("⚠️ Dimensão 'dim_localidade.csv' não encontrada. Execute primeiro com clientes.csv.")
+        else:
+            dim_localidade = pd.read_csv(caminho_dim, encoding="utf-8")
+            if {"estado"}.issubset(df.columns):
+                df["estado"] = df["estado"].str.upper()
+                df = df.merge(
+                    dim_localidade[["estado", "id_estado"]].drop_duplicates(),
+                    on="estado",
+                    how="left"
+                )
+                if verbose:
+                    print("📎 Coluna 'id_estado' adicionada ao arquivo perdas_energia.csv.")
+
     # Padroniza datas
     for coluna in df.columns:
         if re.search(r"data|date", coluna, re.IGNORECASE):

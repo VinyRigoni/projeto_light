@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS projeto_light.perdas_energia (
     data_perda DATE,
     estado VARCHAR(100),
     perda_tecnica_kwh NUMERIC(15,2),
-    perda_nao_tecnica_kwh NUMERIC(15,2)
+    perda_nao_tecnica_kwh NUMERIC(15,2),
+    id_estado INT
 );
 
 -- 6️⃣ Tabela de ocorrências técnicas

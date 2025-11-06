@@ -9,7 +9,7 @@ COPY projeto_light.clientes (
     id_estado,
     id_cidade_estado
 )
-FROM 'C:\\database_final\\database_final.csv'
+FROM 'C:\\database_final\\clientes_tratado.csv'
 DELIMITER ',' CSV HEADER ENCODING 'UTF8'; 
 
 COPY projeto_light.dim_localidade (  
@@ -50,7 +50,8 @@ COPY projeto_light.perdas_energia(
    data_perda,
    estado,
    perda_tecnica_kwh,
-   perda_nao_tecnica_kwh 
+   perda_nao_tecnica_kwh,
+   id_estado
 )
 FROM 'C:\\database_final\\perdas_energia_tratado.csv'
 DELIMITER ',' CSV HEADER ENCODING 'UTF8';
