@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def registrar_log(mensagem: str, log_path: Path):
-    """Grava logs de execução (data, hora e mensagem)."""
+    #Grava logs de execução (data, hora e mensagem).
     log_path.parent.mkdir(parents=True, exist_ok=True)
     with open(log_path, 'a', encoding='utf-8') as log_file:
         agora = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
@@ -14,7 +14,7 @@ def registrar_log(mensagem: str, log_path: Path):
 
 
 def limpar_nome(nome: str) -> str:
-    """Remove pronomes de tratamento, acentos e caracteres especiais."""
+    #Remove pronomes de tratamento, acentos e caracteres especiais.
     if pd.isna(nome):
         return ""
     nome = str(nome).lower().strip()
@@ -25,7 +25,7 @@ def limpar_nome(nome: str) -> str:
 
 
 def normalizar_cidade(texto: str) -> str:
-    """Converte texto em MAIÚSCULO e remove acentos."""
+    #Converte texto em MAIÚSCULO e remove acentos.
     if pd.isna(texto):
         return ""
     texto = str(texto).strip()
@@ -34,16 +34,16 @@ def normalizar_cidade(texto: str) -> str:
 
 
 def gerar_ids_dim_localidade(df: pd.DataFrame) -> pd.DataFrame:
-    """Gera IDs de cidade/estado e retorna DataFrame com colunas id_cidade, id_estado, id_cidade_estado."""
+    #Gera IDs de cidade/estado e retorna DataFrame com colunas id_cidade, id_estado, id_cidade_estado.
     df["cidade"] = df["cidade"].astype(str).str.strip().apply(normalizar_cidade)
     df["estado"] = df["estado"].astype(str).str.strip().str.upper()
 
-    # Dimensão cidades
+    # dimensionando cidades
     cidades_unicas = pd.DataFrame(df["cidade"].dropna().unique(), columns=["cidade"])
     cidades_unicas = cidades_unicas.sort_values(by="cidade", ignore_index=True)
     cidades_unicas["id_cidade"] = [f"{i:03d}" for i in range(1, len(cidades_unicas) + 1)]
 
-    # Dimensão estados (sempre 2 dígitos)
+    # dimensionando o estado para ser sempre 2 dígitos
     estados_unicos = pd.DataFrame(df["estado"].dropna().unique(), columns=["estado"])
     estados_unicos = estados_unicos.sort_values(by="estado", ignore_index=True)
     estados_unicos["id_estado"] = [f"{i:02d}" for i in range(1, len(estados_unicos) + 1)]
@@ -52,20 +52,20 @@ def gerar_ids_dim_localidade(df: pd.DataFrame) -> pd.DataFrame:
     df = df.merge(cidades_unicas, on="cidade", how="left")
     df = df.merge(estados_unicos, on="estado", how="left")
 
-    # id_cidade_estado → 5 algarismos (cidade 3 + estado 2)
+    # criação do id_cidade_estado
     df["id_cidade_estado"] = df["id_cidade"].astype(str) + df["id_estado"].astype(str)
 
     return df, cidades_unicas, estados_unicos
 
 
 def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verbose=False):
-    """Atualiza dim_localidade.csv com novas cidades/estados que ainda não existam."""
+    #Atualiza dim_localidade.csv com novas cidades/estados que ainda não existam.
     if caminho_dim.exists():
         dim_localidade = pd.read_csv(caminho_dim, encoding="utf-8")
     else:
         dim_localidade = pd.DataFrame(columns=["cidade", "estado", "id_cidade", "id_estado", "id_cidade_estado"])
 
-    # Normaliza
+    # Normalização das tabelas
     dim_localidade["cidade"] = dim_localidade["cidade"].apply(normalizar_cidade)
     dim_localidade["estado"] = dim_localidade["estado"].str.upper()
     novas_linhas["cidade"] = novas_linhas["cidade"].apply(normalizar_cidade)
@@ -77,10 +77,11 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
 
     if novas.empty:
         if verbose:
-            print("✅ Nenhuma nova localidade encontrada para adicionar.")
+            print("Nenhuma nova localidade encontrada para adicionar.")
         return dim_localidade
 
-    # 🔹 Mantém o mesmo id_estado para estados já existentes
+    # Como estamos trazendo locais novos do arquivo ocorrencias_tecnicas.csv, precisa-se manter o mesmo id_estado para estados já existentes, se nao fizer isto,
+    #ele considerará os mesmos estados previamente setados como novos
     estados_existentes = dim_localidade[["estado", "id_estado"]].drop_duplicates()
     novos_estados = novas[~novas["estado"].isin(estados_existentes["estado"])].drop_duplicates(subset=["estado"])
     prox_id_estado = (
@@ -96,7 +97,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
     else:
         estados_atualizados = estados_existentes
 
-    # Gera novos IDs de cidade (3 dígitos)
+    # Gerando novos ids pra cidade
     prox_id_cidade = (
         dim_localidade["id_cidade"].astype(str).astype(float).max() if not dim_localidade.empty else 0
     )
@@ -105,7 +106,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
     novas = novas.merge(estados_atualizados, on="estado", how="left")
     novas["id_cidade"] = [f"{i:03d}" for i in range(prox_id_cidade, prox_id_cidade + len(novas))]
 
-    # id_cidade_estado = cidade (3) + estado (2)
+    # criacao do identificador id_cidade_estado
     novas["id_cidade_estado"] = novas["id_cidade"].astype(str) + novas["id_estado"].astype(str)
 
     # 🔹 Atualiza e salva dimensão
@@ -115,13 +116,13 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
     dim_atualizada.to_csv(caminho_dim, encoding="utf-8", index=False)
 
     if verbose:
-        print(f"🔄 Dimensão localidade atualizada: {len(novas)} novas entradas adicionadas.")
+        print(f"Dimensão localidade atualizada: {len(novas)} novas entradas adicionadas.")
 
     return dim_atualizada
 
 
 def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool = False) -> Path:
-    """Lê um CSV, trata dados e exporta o resultado e as dimensões como CSV UTF-8 delimitado por vírgula."""
+    #Lendo o CSV
     try:
         df = pd.read_csv(caminho_csv, sep=None, engine="python", encoding="utf-8")
     except UnicodeDecodeError:
@@ -138,7 +139,7 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
 
     caminho_dim = output_dir / "dim_localidade.csv"
 
-    # CLIENTES.CSV → cria dimensão
+    # criando a dimensão para localidade
     if nome_arquivo == "clientes.csv":
         if "nome_cliente" in df.columns:
             df["nome_cliente"] = df["nome_cliente"].apply(limpar_nome)
@@ -158,20 +159,20 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
         elif verbose:
             print("⚠️ Colunas 'cidade' e/ou 'estado' não encontradas.")
 
-    # OCORRENCIAS_TECNICAS.CSV → atualiza dimensão existente
+    #  complementando a dimensão localidade, pois existem cidades e estado neste arquivo que nao tem no clientes.csv
     elif nome_arquivo == "ocorrencias_tecnicas.csv":
         if not caminho_dim.exists():
             if verbose:
-                print("⚠️ Dimensão 'dim_localidade.csv' não encontrada. Execute primeiro com clientes.csv.")
+                print("Dimensão 'dim_localidade.csv' não encontrada.")
         else:
             novas_localidades = df[["cidade", "estado"]].drop_duplicates()
             dim_localidade = atualizar_dim_localidade(caminho_dim, novas_localidades, verbose=verbose)
             df = df.merge(dim_localidade, on=["cidade", "estado"], how="left")
 
             if verbose:
-                print("🔗 IDs aplicados ao arquivo e dimensão atualizada.")
+                print("IDs aplicados ao arquivo e dimensão atualizada.")
 
-    # 🔹 PERDAS_ENERGIA.CSV → acrescenta id_estado
+    # acrescentando id_estado no perdas_energia.csv
     elif nome_arquivo == "perdas_energia.csv":
         if not caminho_dim.exists():
             if verbose:
@@ -188,12 +189,12 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
                 if verbose:
                     print("📎 Coluna 'id_estado' adicionada ao arquivo perdas_energia.csv.")
 
-    # Padroniza datas
+    # Padronização das datas
     for coluna in df.columns:
         if re.search(r"data|date", coluna, re.IGNORECASE):
             df[coluna] = pd.to_datetime(df[coluna], errors="coerce").dt.strftime("%d/%m/%Y")
 
-    # Salva saída em CSV UTF-8 com vírgulas
+    # Salva o arquivo CSV em UTF-8
     output_dir.mkdir(parents=True, exist_ok=True)
     caminho_saida = output_dir / f"{caminho_csv.stem}_tratado.csv"
     df.to_csv(caminho_saida, encoding="utf-8", index=False)

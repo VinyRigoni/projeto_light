@@ -1,9 +1,9 @@
 CREATE SCHEMA IF NOT EXISTS projeto_light;
 
--- 2️⃣ Cria o schema
+--Cria o schema
 CREATE SCHEMA IF NOT EXISTS projeto_light AUTHORIZATION CURRENT_USER;
 
--- 3️⃣ Tabela de clientes
+--Tabela dimensão para clientes
 CREATE TABLE IF NOT EXISTS projeto_light.clientes (
     id_cliente SERIAL PRIMARY KEY,
     nome_cliente VARCHAR(255),
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.clientes (
     id_cidade_estado INT
 );
 
--- 4️⃣ Dimensão de localidade
+--Tabela dimensão para localidade
 CREATE TABLE IF NOT EXISTS projeto_light.dim_localidade (
     id_localidade SERIAL PRIMARY KEY,
     cidade VARCHAR(100),
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.dim_localidade (
     id_cidade_estado INT
 );
 
--- 5️⃣ Tabela de perdas de energia
+--Tabela fato para perdas de energia
 CREATE TABLE IF NOT EXISTS projeto_light.perdas_energia (
     id_perda SERIAL PRIMARY KEY,
     data_perda DATE,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.perdas_energia (
     id_estado INT
 );
 
--- 6️⃣ Tabela de ocorrências técnicas
+--Tabela fato para ocorrências técnicas
 CREATE TABLE IF NOT EXISTS projeto_light.ocorrencias_tecnicas (
     id_ocorrencia SERIAL PRIMARY KEY,
     data_ocorrencia DATE,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.ocorrencias_tecnicas (
     id_cidade_estado INT
 );
 
--- 7️⃣ Tabela de medições de energia
+--Tabela fato para medições de energia
 CREATE TABLE IF NOT EXISTS projeto_light.medicoes_energia (
     id_medicao SERIAL PRIMARY KEY,
     id_cliente INT,
@@ -59,3 +59,63 @@ CREATE TABLE IF NOT EXISTS projeto_light.medicoes_energia (
     FOREIGN KEY (id_cliente) REFERENCES projeto_light.clientes(id_cliente)
 );
 
+/* ----Tabela para Calendario
+CREATE TABLE IF NOT EXISTS projeto_light.dim_calendario (
+    data DATE PRIMARY KEY,
+    ano INTEGER,
+    mes INTEGER,
+    dia INTEGER,
+    nome_mes VARCHAR(20),
+    nome_mes_abrev VARCHAR(3),
+    trimestre INTEGER,
+    semestre INTEGER,
+    nome_dia_semana VARCHAR(20),
+    nome_dia_semana_abrev VARCHAR(3),
+    numero_dia_semana INTEGER,
+    eh_final_de_semana BOOLEAN,
+    ano_mes VARCHAR(7)
+);
+
+DO
+$$
+DECLARE
+    data_atual DATE := '2020-01-01';
+    data_final DATE := '2030-12-31';
+BEGIN
+    WHILE data_atual <= data_final LOOP
+        INSERT INTO projeto_light.dim_calendario (
+            data,
+            ano,
+            mes,
+            dia,
+            nome_mes,
+            nome_mes_abrev,
+            trimestre,
+            semestre,
+            nome_dia_semana,
+            nome_dia_semana_abrev,
+            numero_dia_semana,
+            eh_final_de_semana,
+            ano_mes
+        )
+        VALUES (
+            data_atual,
+            EXTRACT(YEAR FROM data_atual)::INT,
+            EXTRACT(MONTH FROM data_atual)::INT,
+            EXTRACT(DAY FROM data_atual)::INT,
+            INITCAP(TO_CHAR(data_atual, 'TMMonth', 'lc_time=pt_BR')), 
+            INITCAP(TO_CHAR(data_atual, 'Mon', 'lc_time=pt_BR')),
+            EXTRACT(QUARTER FROM data_atual)::INT,
+            CASE WHEN EXTRACT(MONTH FROM data_atual) <= 6 THEN 1 ELSE 2 END,
+            INITCAP(TO_CHAR(data_atual, 'TMDay', 'lc_time=pt_BR')), 
+            INITCAP(TO_CHAR(data_atual, 'Dy', 'lc_time=pt_BR')),
+            EXTRACT(ISODOW FROM data_atual)::INT,
+            CASE WHEN EXTRACT(ISODOW FROM data_atual) IN (6,7) THEN TRUE ELSE FALSE END,
+            TO_CHAR(data_atual, 'YYYY-MM')
+        );
+
+        data_atual := data_atual + INTERVAL '1 day';
+    END LOOP;
+END
+$$;
+*/

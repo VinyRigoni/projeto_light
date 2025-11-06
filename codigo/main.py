@@ -19,7 +19,7 @@ for csv_path in csv_files:
         xlsx_path = converter_csv_para_xlsx(csv_path, output_dir)
         registrar_log(f"✅ {csv_path.name} convertido com sucesso → {xlsx_path.name}", log_file)
     except Exception as e:
-        registrar_log(f"❌ Erro ao processar {csv_path.name}: {str(e)}", log_file)
+        registrar_log(f"Erro ao processar {csv_path.name}: {str(e)}", log_file)
 
 fim = time.time()
 duracao = round(fim - inicio, 2)
