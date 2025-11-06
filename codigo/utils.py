@@ -41,9 +41,9 @@ def gerar_ids_dim_localidade(df: pd.DataFrame) -> pd.DataFrame:
     # Dimensão cidades
     cidades_unicas = pd.DataFrame(df["cidade"].dropna().unique(), columns=["cidade"])
     cidades_unicas = cidades_unicas.sort_values(by="cidade", ignore_index=True)
-    cidades_unicas["id_cidade"] = [f"{i:04d}" for i in range(1, len(cidades_unicas) + 1)]
+    cidades_unicas["id_cidade"] = [f"{i:03d}" for i in range(1, len(cidades_unicas) + 1)]
 
-    # Dimensão estados
+    # Dimensão estados (sempre 2 dígitos)
     estados_unicos = pd.DataFrame(df["estado"].dropna().unique(), columns=["estado"])
     estados_unicos = estados_unicos.sort_values(by="estado", ignore_index=True)
     estados_unicos["id_estado"] = [f"{i:02d}" for i in range(1, len(estados_unicos) + 1)]
@@ -51,6 +51,8 @@ def gerar_ids_dim_localidade(df: pd.DataFrame) -> pd.DataFrame:
     # Merge
     df = df.merge(cidades_unicas, on="cidade", how="left")
     df = df.merge(estados_unicos, on="estado", how="left")
+
+    # id_cidade_estado → 5 algarismos (cidade 3 + estado 2)
     df["id_cidade_estado"] = df["id_cidade"].astype(str) + df["id_estado"].astype(str)
 
     return df, cidades_unicas, estados_unicos
@@ -69,7 +71,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
     novas_linhas["cidade"] = novas_linhas["cidade"].apply(normalizar_cidade)
     novas_linhas["estado"] = novas_linhas["estado"].str.upper()
 
-    # Novas combinações
+    # Verifica novas combinações cidade/estado
     novas = novas_linhas.merge(dim_localidade, on=["cidade", "estado"], how="left", indicator=True)
     novas = novas.loc[novas["_merge"] == "left_only", ["cidade", "estado"]]
 
@@ -78,19 +80,37 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
             print("✅ Nenhuma nova localidade encontrada para adicionar.")
         return dim_localidade
 
-    # Próximos IDs
-    prox_id_cidade = dim_localidade["id_cidade"].astype(str).astype(float).max() if not dim_localidade.empty else 0
-    prox_id_estado = dim_localidade["id_estado"].astype(str).astype(float).max() if not dim_localidade.empty else 0
-    prox_id_cidade = int(prox_id_cidade) + 1 if not pd.isna(prox_id_cidade) else 1
+    # 🔹 Mantém o mesmo id_estado para estados já existentes
+    estados_existentes = dim_localidade[["estado", "id_estado"]].drop_duplicates()
+    novos_estados = novas[~novas["estado"].isin(estados_existentes["estado"])].drop_duplicates(subset=["estado"])
+    prox_id_estado = (
+        dim_localidade["id_estado"].astype(str).astype(float).max() if not dim_localidade.empty else 0
+    )
     prox_id_estado = int(prox_id_estado) + 1 if not pd.isna(prox_id_estado) else 1
 
-    novas = novas.sort_values(by=["estado", "cidade"], ignore_index=True)
-    novas["id_cidade"] = [f"{i:04d}" for i in range(prox_id_cidade, prox_id_cidade + len(novas))]
-    novas["id_estado"] = [f"{i:02d}" for i in range(prox_id_estado, prox_id_estado + len(novas))]
-    novas["id_cidade_estado"] = novas["id_cidade"] + novas["id_estado"]
+    if not novos_estados.empty:
+        novos_estados["id_estado"] = [
+            f"{i:02d}" for i in range(prox_id_estado, prox_id_estado + len(novos_estados))
+        ]
+        estados_atualizados = pd.concat([estados_existentes, novos_estados], ignore_index=True)
+    else:
+        estados_atualizados = estados_existentes
 
-    # Concatena e salva
-    dim_atualizada = pd.concat([dim_localidade, novas], ignore_index=True).drop_duplicates(subset=["cidade", "estado"])
+    # Gera novos IDs de cidade (3 dígitos)
+    prox_id_cidade = (
+        dim_localidade["id_cidade"].astype(str).astype(float).max() if not dim_localidade.empty else 0
+    )
+    prox_id_cidade = int(prox_id_cidade) + 1 if not pd.isna(prox_id_cidade) else 1
+
+    novas = novas.merge(estados_atualizados, on="estado", how="left")
+    novas["id_cidade"] = [f"{i:03d}" for i in range(prox_id_cidade, prox_id_cidade + len(novas))]
+
+    # id_cidade_estado = cidade (3) + estado (2)
+    novas["id_cidade_estado"] = novas["id_cidade"].astype(str) + novas["id_estado"].astype(str)
+
+    # 🔹 Atualiza e salva dimensão
+    dim_atualizada = pd.concat([dim_localidade, novas], ignore_index=True)
+    dim_atualizada = dim_atualizada.drop_duplicates(subset=["cidade", "estado"])
     dim_atualizada = dim_atualizada.sort_values(by=["estado", "cidade"], ignore_index=True)
     dim_atualizada.to_csv(caminho_dim, encoding="utf-8", index=False)
 
@@ -101,9 +121,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
 
 
 def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool = False) -> Path:
-    """
-    Lê um CSV, trata dados e exporta o resultado e as dimensões como CSV UTF-8 delimitado por vírgula.
-    """
+    """Lê um CSV, trata dados e exporta o resultado e as dimensões como CSV UTF-8 delimitado por vírgula."""
     try:
         df = pd.read_csv(caminho_csv, sep=None, engine="python", encoding="utf-8")
     except UnicodeDecodeError:

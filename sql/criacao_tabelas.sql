@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.clientes (
     data_adesao DATE,
     id_cidade INT,
     id_estado INT,
-    id_cidade_estado VARCHAR(50)
+    id_cidade_estado INT
 );
 
 -- 4️⃣ Dimensão de localidade
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.dim_localidade (
     estado VARCHAR(100),
     id_cidade INT,
     id_estado INT,
-    id_cidade_estado VARCHAR(50)
+    id_cidade_estado INT
 );
 
 -- 5️⃣ Tabela de perdas de energia
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS projeto_light.ocorrencias_tecnicas (
     tempo_reparo_h NUMERIC(10,2),
     id_cidade INT,
     id_estado INT,
-    id_cidade_estado VARCHAR(50)
+    id_cidade_estado INT
 );
 
 -- 7️⃣ Tabela de medições de energia

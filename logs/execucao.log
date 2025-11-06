@@ -220,3 +220,33 @@
 [05/11/2025 21:28:33] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
 [05/11/2025 21:28:33] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
 [05/11/2025 21:28:33] Processo concluído em 0.14 segundos.
+[06/11/2025 02:18:37] Iniciando processo de transformação...
+[06/11/2025 02:18:37] ✅ clientes.csv convertido com sucesso → clientes_tratado.csv
+[06/11/2025 02:18:37] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.csv
+[06/11/2025 02:18:37] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
+[06/11/2025 02:18:37] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
+[06/11/2025 02:18:37] Processo concluído em 0.25 segundos.
+[06/11/2025 02:20:26] Iniciando processo de transformação...
+[06/11/2025 02:20:26] ✅ clientes.csv convertido com sucesso → clientes_tratado.csv
+[06/11/2025 02:20:26] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.csv
+[06/11/2025 02:20:26] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
+[06/11/2025 02:20:26] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
+[06/11/2025 02:20:26] Processo concluído em 0.14 segundos.
+[06/11/2025 02:34:39] Iniciando processo de transformação...
+[06/11/2025 02:34:39] ❌ Erro ao processar clientes.csv: [Errno 13] Permission denied: 'c:\\Users\\Vinicius\\Documents\\projeto_light\\database_final\\dim_localidade.csv'
+[06/11/2025 02:34:39] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.csv
+[06/11/2025 02:34:39] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
+[06/11/2025 02:34:39] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
+[06/11/2025 02:34:39] Processo concluído em 0.13 segundos.
+[06/11/2025 02:34:55] Iniciando processo de transformação...
+[06/11/2025 02:34:55] ✅ clientes.csv convertido com sucesso → clientes_tratado.csv
+[06/11/2025 02:34:55] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.csv
+[06/11/2025 02:34:55] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
+[06/11/2025 02:34:55] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
+[06/11/2025 02:34:55] Processo concluído em 0.15 segundos.
+[06/11/2025 02:40:56] Iniciando processo de transformação...
+[06/11/2025 02:40:56] ✅ clientes.csv convertido com sucesso → clientes_tratado.csv
+[06/11/2025 02:40:56] ✅ medicoes_energia.csv convertido com sucesso → medicoes_energia_tratado.csv
+[06/11/2025 02:40:56] ✅ ocorrencias_tecnicas.csv convertido com sucesso → ocorrencias_tecnicas_tratado.csv
+[06/11/2025 02:40:56] ✅ perdas_energia.csv convertido com sucesso → perdas_energia_tratado.csv
+[06/11/2025 02:40:56] Processo concluído em 0.15 segundos.

@@ -13,11 +13,11 @@ GITHUB_REPO = "https://raw.githubusercontent.com/VinyRigoni/projeto_light/main/d
 
 # Lista de arquivos CSV que você quer importar
 ARQUIVOS = [
-    "clientes.csv",
-    "dim_localidade.csv",
-    "perdas_energia.csv",
-    "ocorrencias_tecnicas.csv",
-    "medicoes_energia.csv"
+    "clientes_tratado.csv",
+    "dim_localidade_tratado.csv",
+    "perdas_energia_tratado.csv",
+    "ocorrencias_tecnicas_tratado.csv",
+    "medicoes_energia_tratado.csv"
 ]
 
 # Nome do banco e schema
@@ -110,8 +110,9 @@ def importar_csvs():
         print(f"🔄 Baixando {arquivo} ...")
         try:
             response = requests.get(url)
+            response.encoding = "utf-8"
             response.raise_for_status()
-            df = pd.read_csv(io.StringIO(response.text), encoding="utf-8", sep=",")
+            df = pd.read_csv(io.StringIO(response.text), sep=",")
             tabela = os.path.splitext(arquivo)[0]  # nome da tabela = nome do arquivo sem .csv
             df.to_sql(tabela, engine, schema=SCHEMA, if_exists="append", index=False)
             print(f"✅ {arquivo} importado com sucesso para {SCHEMA}.{tabela}")
