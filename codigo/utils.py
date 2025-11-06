@@ -34,51 +34,42 @@ def normalizar_cidade(texto: str) -> str:
 
 
 def gerar_ids_dim_localidade(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Gera IDs numéricos:
-      - id_cidade: 4 dígitos (0001, 0002, ...)
-      - id_estado: 2 dígitos (01, 02, ...)
-      - id_cidade_estado: concatenação literal id_cidade + id_estado (6 dígitos)
-    Retorna o dataframe com as colunas id_cidade, id_estado e id_cidade_estado adicionadas.
-    """
-    # Normaliza colunas
+    """Gera IDs de cidade/estado e retorna DataFrame com colunas id_cidade, id_estado, id_cidade_estado."""
     df["cidade"] = df["cidade"].astype(str).str.strip().apply(normalizar_cidade)
     df["estado"] = df["estado"].astype(str).str.strip().str.upper()
 
-    # --- Gera dimensão de cidades
+    # Dimensão cidades
     cidades_unicas = pd.DataFrame(df["cidade"].dropna().unique(), columns=["cidade"])
     cidades_unicas = cidades_unicas.sort_values(by="cidade", ignore_index=True)
-    cidades_unicas["id_cidade"] = [f"{i:04d}" for i in range(1, len(cidades_unicas) + 1)]  # começa em 0001
+    cidades_unicas["id_cidade"] = [f"{i:04d}" for i in range(1, len(cidades_unicas) + 1)]
 
-    # --- Gera dimensão de estados
+    # Dimensão estados
     estados_unicos = pd.DataFrame(df["estado"].dropna().unique(), columns=["estado"])
     estados_unicos = estados_unicos.sort_values(by="estado", ignore_index=True)
-    estados_unicos["id_estado"] = [f"{i:02d}" for i in range(1, len(estados_unicos) + 1)]  # começa em 01
+    estados_unicos["id_estado"] = [f"{i:02d}" for i in range(1, len(estados_unicos) + 1)]
 
-    # --- Junta IDs ao dataframe principal
+    # Merge
     df = df.merge(cidades_unicas, on="cidade", how="left")
     df = df.merge(estados_unicos, on="estado", how="left")
-
-    # --- Concatena para formar id_cidade_estado (6 dígitos)
     df["id_cidade_estado"] = df["id_cidade"].astype(str) + df["id_estado"].astype(str)
 
     return df, cidades_unicas, estados_unicos
 
+
 def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verbose=False):
-    """Atualiza dim_localidade.xlsx com novas cidades/estados que ainda não existam."""
+    """Atualiza dim_localidade.csv com novas cidades/estados que ainda não existam."""
     if caminho_dim.exists():
-        dim_localidade = pd.read_excel(caminho_dim)
+        dim_localidade = pd.read_csv(caminho_dim, encoding="utf-8")
     else:
         dim_localidade = pd.DataFrame(columns=["cidade", "estado", "id_cidade", "id_estado", "id_cidade_estado"])
 
-    # Normaliza e compara
+    # Normaliza
     dim_localidade["cidade"] = dim_localidade["cidade"].apply(normalizar_cidade)
     dim_localidade["estado"] = dim_localidade["estado"].str.upper()
-
     novas_linhas["cidade"] = novas_linhas["cidade"].apply(normalizar_cidade)
     novas_linhas["estado"] = novas_linhas["estado"].str.upper()
 
-    # Identifica novas combinações
+    # Novas combinações
     novas = novas_linhas.merge(dim_localidade, on=["cidade", "estado"], how="left", indicator=True)
     novas = novas.loc[novas["_merge"] == "left_only", ["cidade", "estado"]]
 
@@ -87,7 +78,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
             print("✅ Nenhuma nova localidade encontrada para adicionar.")
         return dim_localidade
 
-    # Determina os próximos IDs
+    # Próximos IDs
     prox_id_cidade = dim_localidade["id_cidade"].astype(str).astype(float).max() if not dim_localidade.empty else 0
     prox_id_estado = dim_localidade["id_estado"].astype(str).astype(float).max() if not dim_localidade.empty else 0
     prox_id_cidade = int(prox_id_cidade) + 1 if not pd.isna(prox_id_cidade) else 1
@@ -101,7 +92,7 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
     # Concatena e salva
     dim_atualizada = pd.concat([dim_localidade, novas], ignore_index=True).drop_duplicates(subset=["cidade", "estado"])
     dim_atualizada = dim_atualizada.sort_values(by=["estado", "cidade"], ignore_index=True)
-    dim_atualizada.to_excel(caminho_dim, index=False)
+    dim_atualizada.to_csv(caminho_dim, encoding="utf-8", index=False)
 
     if verbose:
         print(f"🔄 Dimensão localidade atualizada: {len(novas)} novas entradas adicionadas.")
@@ -110,6 +101,9 @@ def atualizar_dim_localidade(caminho_dim: Path, novas_linhas: pd.DataFrame, verb
 
 
 def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool = False) -> Path:
+    """
+    Lê um CSV, trata dados e exporta o resultado e as dimensões como CSV UTF-8 delimitado por vírgula.
+    """
     try:
         df = pd.read_csv(caminho_csv, sep=None, engine="python", encoding="utf-8")
     except UnicodeDecodeError:
@@ -124,11 +118,9 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
     if "estado" in df.columns:
         df["estado"] = df["estado"].str.upper()
 
-    caminho_dim = output_dir / "dim_localidade.xlsx"
+    caminho_dim = output_dir / "dim_localidade.csv"
 
-    # =====================================================
-    # CLIENTES.CSV → cria a dimensão do zero
-    # =====================================================
+    # CLIENTES.CSV → cria dimensão
     if nome_arquivo == "clientes.csv":
         if "nome_cliente" in df.columns:
             df["nome_cliente"] = df["nome_cliente"].apply(limpar_nome)
@@ -141,22 +133,19 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
                 .sort_values(by=["estado", "cidade"])
             )
             output_dir.mkdir(parents=True, exist_ok=True)
-            dim_localidade.to_excel(caminho_dim, index=False)
+            dim_localidade.to_csv(caminho_dim, encoding="utf-8", index=False)
 
             if verbose:
-                print(f"📘 Dimensão 'dim_localidade.xlsx' criada em: {caminho_dim}")
+                print(f"📘 Dimensão 'dim_localidade.csv' criada em: {caminho_dim}")
         elif verbose:
             print("⚠️ Colunas 'cidade' e/ou 'estado' não encontradas.")
 
-    # =====================================================
     # OCORRENCIAS_TECNICAS.CSV → atualiza dimensão existente
-    # =====================================================
     elif nome_arquivo == "ocorrencias_tecnicas.csv":
         if not caminho_dim.exists():
             if verbose:
-                print("⚠️ Dimensão 'dim_localidade.xlsx' não encontrada. Execute primeiro com clientes.csv.")
+                print("⚠️ Dimensão 'dim_localidade.csv' não encontrada. Execute primeiro com clientes.csv.")
         else:
-            # Lê e atualiza dim_localidade se houver novas cidades/estados
             novas_localidades = df[["cidade", "estado"]].drop_duplicates()
             dim_localidade = atualizar_dim_localidade(caminho_dim, novas_localidades, verbose=verbose)
             df = df.merge(dim_localidade, on=["cidade", "estado"], how="left")
@@ -164,16 +153,15 @@ def converter_csv_para_xlsx(caminho_csv: Path, output_dir: Path, verbose: bool =
             if verbose:
                 print("🔗 IDs aplicados ao arquivo e dimensão atualizada.")
 
-    # =====================================================
-    # Padroniza datas e exporta
-    # =====================================================
+    # Padroniza datas
     for coluna in df.columns:
         if re.search(r"data|date", coluna, re.IGNORECASE):
             df[coluna] = pd.to_datetime(df[coluna], errors="coerce").dt.strftime("%d/%m/%Y")
 
+    # Salva saída em CSV UTF-8 com vírgulas
     output_dir.mkdir(parents=True, exist_ok=True)
-    caminho_saida = output_dir / f"{caminho_csv.stem}_tratado.xlsx"
-    df.to_excel(caminho_saida, index=False)
+    caminho_saida = output_dir / f"{caminho_csv.stem}_tratado.csv"
+    df.to_csv(caminho_saida, encoding="utf-8", index=False)
 
     if verbose:
         print(f"✅ Arquivo convertido com sucesso: {caminho_saida}")
