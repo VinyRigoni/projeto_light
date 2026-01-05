@@ -1,0 +1,2 @@
+servidor:localhost
+banco de dados:database_light
